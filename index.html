@@ -33,14 +33,21 @@
         const listEl = document.getElementById('skillsList');
 
         async function init() {
-            try {
-                const res = await fetch('skills.json');
-                skills = await res.json();
-                render(skills);
-            } catch (e) {
-                listEl.innerHTML = '<p class="text-yellow-400">Data is being prepared by the bot... Please refresh in 2 minutes.</p>';
-            }
+    try {
+        const res = await fetch('skills.json');
+        const data = await res.json(); // This is now an object {last_updated, skills}
+        skills = data.skills; // Assign the array of skills
+        
+        // Optional: Show update time if you have an element with id="syncTime"
+        if(document.getElementById('syncTime')) {
+            document.getElementById('syncTime').innerText = data.last_updated;
         }
+        
+        render(skills);
+    } catch (e) {
+        console.error("Fetch error:", e);
+    }
+}
 
         function render(data) {
             if (data.length === 0) {
