@@ -4,63 +4,64 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 
 def scrape_moltbot_skills():
-    print("Launching Deep Scraper...")
+    print("Launching Infinite Scraper...")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         
-        print("Navigating to ClawdHub Skills...")
+        print("Navigating to ClawdHub...")
         page.goto("https://clawdhub.com/skills", wait_until="networkidle")
         
-        # --- NEW: Scroll down to load all dynamic content ---
-        print("Scrolling to load all skills...")
-        for _ in range(5): # Scroll 5 times to trigger lazy-loading
+        # --- NEW: Infinite Scroll Logic ---
+        last_height = page.evaluate("document.body.scrollHeight")
+        while True:
+            print("Scrolling down...")
             page.mouse.wheel(0, 2000)
-            page.wait_for_timeout(1000)
+            page.wait_for_timeout(2000) # Wait for content to load
             
-        # Final wait for any last elements to appear
-        page.wait_for_timeout(3000)
+            new_height = page.evaluate("document.body.scrollHeight")
+            if new_height == last_height:
+                break # Stop if we reached the bottom
+            last_height = new_height
+            
+        print("Reached bottom of the page. Extracting data...")
         
         extracted_skills = []
         
-        # --- NEW: Improved selection logic ---
-        # We look for all containers that likely represent a skill card
-        # On ClawdHub, these are usually divs with 'group' or specific card classes
-        cards = page.query_selector_all("div.group, div.relative.border, div.bg-card")
-        print(f"Analyzing {len(cards)} potential skill cards...")
-
-        for card in cards:
-            # Look for the GitHub link inside this specific card
-            link_el = card.query_selector("a[href*='github.com']")
-            if not link_el:
-                continue
+        # --- NEW: Ultra-Broad Selectors ---
+        # We look for any link that looks like a GitHub repo
+        links = page.query_selector_all("a[href*='github.com/']")
+        
+        for link in links:
+            href = link.get_attribute("href")
+            # Move up to find the container div for this skill
+            container = link.evaluate_handle("el => el.closest('div')").as_element()
+            
+            if container:
+                # Get the name from the closest heading or strong text
+                name_el = container.query_selector("h1, h2, h3, h4, p, span")
+                name = name_el.inner_text().strip() if name_el else "Unknown"
                 
-            href = link_el.get_attribute("href")
-            
-            # Extract name from the heading
-            name_el = card.query_selector("h1, h2, h3, h4, font")
-            name = name_el.inner_text().strip() if name_el else "Unknown Skill"
-            
-            # Extract description from the paragraph
-            desc_el = card.query_selector("p")
-            desc = desc_el.inner_text().strip() if desc_el else "Advanced Moltbot tool."
-            
-            # Extract stars using regex from the card text
-            full_text = card.inner_text()
-            stars = 0
-            star_match = re.search(r'(\d+)\s*stars?', full_text, re.I)
-            if star_match:
-                stars = int(star_match.group(1))
+                # Get description
+                desc_el = container.query_selector("p")
+                desc = desc_el.inner_text().strip() if desc_el else ""
+                
+                # Parse stars
+                stars = 0
+                full_text = container.inner_text()
+                star_match = re.search(r'(\d+)', full_text)
+                if star_match:
+                    stars = int(star_match.group(1))
 
-            extracted_skills.append({
-                "name": name,
-                "desc": desc,
-                "url": href,
-                "stars": stars
-            })
+                extracted_skills.append({
+                    "name": name,
+                    "desc": desc,
+                    "url": href,
+                    "stars": stars
+                })
 
-        # Remove duplicates based on the GitHub URL
-        unique_skills = {s['url']: s for s in extracted_skills}.values()
+        # Final Clean-up: Remove duplicates and empty entries
+        unique_skills = {s['url']: s for s in extracted_skills if len(s['name']) > 2}.values()
         final_list = list(unique_skills)
 
         output_data = {
@@ -71,7 +72,7 @@ def scrape_moltbot_skills():
         with open('skills.json', 'w', encoding='utf-8') as f:
             json.dump(output_data, f, ensure_ascii=False, indent=2)
             
-        print(f"Success! Saved {len(final_list)} unique skills to skills.json.")
+        print(f"Success! Saved {len(final_list)} unique skills.")
         browser.close()
 
 if __name__ == "__main__":
