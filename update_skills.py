@@ -4,66 +4,57 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 
 def scrape_moltbot_skills():
-    print("Launching Deep Search Scraper...")
+    print("Launching Snapshot Collector (Virtual List Mode)...")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
         page = browser.new_page()
         
         print("Navigating to ClawdHub...")
         page.goto("https://clawdhub.com/skills", wait_until="networkidle")
-        
-        # We give the page a moment to settle
         page.wait_for_timeout(5000)
 
         all_skills = {}
 
-        # Scroll loop to trigger all lazy-loading
-        for i in range(15):  # Increased scroll count
-            print(f"Deep Scroll Step {i+1}/15...")
-            page.evaluate("window.scrollBy(0, 1500)")
-            page.wait_for_timeout(2000)
-
-            # --- JAVASCRIPT INJECTION: Find skills even in Shadow DOM ---
-            # This script runs inside the browser and finds all GitHub links 
-            # and their nearest text labels.
-            found_data = page.evaluate("""() => {
-                const results = [];
+        # The Loop: Scroll a little, grab everything visible, repeat.
+        for i in range(30): # More small steps instead of big jumps
+            print(f"Collecting Snapshot {i+1}/30... (Total: {len(all_skills)})")
+            
+            # 1. Grab visible data using JS injection
+            snapshot = page.evaluate("""() => {
+                const items = [];
+                // Look for every link to GitHub currently in the DOM
                 const links = Array.from(document.querySelectorAll('a[href*="github.com/"]'));
                 
                 links.forEach(link => {
-                    let parent = link.parentElement;
-                    // Look up to 5 levels up for a container with text
-                    let name = "Unknown";
-                    let desc = "";
+                    let parent = link.closest('div'); 
+                    // Search for name and description in the container
+                    const nameEl = parent ? parent.querySelector('h1, h2, h3, h4, h5, strong, p') : null;
+                    const descEl = parent ? parent.querySelector('p:not(h1,h2,h3,h4,h5)') : null;
                     
-                    for (let i = 0; i < 5; i++) {
-                        if (parent) {
-                            const h = parent.querySelector('h1, h2, h3, h4, h5, strong');
-                            if (h) name = h.innerText;
-                            const p = parent.querySelector('p');
-                            if (p) desc = p.innerText;
-                            if (name !== "Unknown") break;
-                            parent = parent.parentElement;
-                        }
+                    if (nameEl && nameEl.innerText.length > 2) {
+                        items.push({
+                            name: nameEl.innerText.split('\\n')[0].trim(),
+                            desc: desc_el ? desc_el.innerText.trim() : "",
+                            url: link.href
+                        });
                     }
-                    
-                    results.push({
-                        name: name.trim(),
-                        desc: desc.trim(),
-                        url: link.href
-                    });
                 });
-                return results;
+                return items;
             }""")
 
-            for item in found_data:
-                if item['url'] not in all_skills and len(item['name']) > 1:
+            # 2. Add new findings to our master dictionary
+            for item in snapshot:
+                if item['url'] not in all_skills:
                     all_skills[item['url']] = {
                         "name": item['name'],
                         "desc": item['desc'],
                         "url": item['url'],
-                        "stars": 0 # Default if stars are hidden in icons
+                        "stars": 0
                     }
+
+            # 3. Scroll down exactly one screen height
+            page.evaluate("window.scrollBy(0, window.innerHeight)")
+            page.wait_for_timeout(1500) # Wait for the virtual list to swap items
 
         final_list = list(all_skills.values())
         
@@ -75,7 +66,7 @@ def scrape_moltbot_skills():
         with open('skills.json', 'w', encoding='utf-8') as f:
             json.dump(output_data, f, ensure_ascii=False, indent=2)
             
-        print(f"Success! Deep Search found {len(final_list)} skills.")
+        print(f"Success! Collector found {len(final_list)} skills.")
         browser.close()
 
 if __name__ == "__main__":
