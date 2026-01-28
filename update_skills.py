@@ -4,10 +4,9 @@ from datetime import datetime
 from playwright.sync_api import sync_playwright
 
 def scrape_moltbot_skills():
-    print("Launching Persistent Harvester (Anti-Virtual-Scroll Mode)...")
+    print("Launching Fixed Snapshot Harvester...")
     with sync_playwright() as p:
         browser = p.chromium.launch(headless=True)
-        # We use a large viewport to see more items at once
         context = browser.new_context(viewport={'width': 1920, 'height': 1080})
         page = context.new_page()
         
@@ -17,43 +16,47 @@ def scrape_moltbot_skills():
 
         all_skills_dict = {}
         
-        # We will perform many small scrolls to catch items before they are unmounted
-        # On infinite scroll sites, small increments are more reliable
-        for i in range(50): 
-            # 1. Capture everything currently in the 'Window'
-            # We use evaluate to get the raw data directly from the DOM
+        # Incremental scrolling to bypass Virtual List unmounting
+        for i in range(40): 
+            # Capture using valid JavaScript .push() logic
             current_view_items = page.evaluate("""() => {
                 const results = [];
+                // Find all links that look like a GitHub repository
                 const links = Array.from(document.querySelectorAll('a[href*="github.com/"]'));
                 
                 links.forEach(link => {
-                    // Navigate up to find the card container
-                    const card = link.closest('div');
+                    // Navigate up to find a container with text
+                    const card = link.closest('div, section, li');
                     if (card) {
-                        const title = card.querySelector('h1, h2, h3, h4, h5, strong')?.innerText || "Unknown";
-                        const desc = card.querySelector('p')?.innerText || "";
-                        results.append({ url: link.href, name: title.trim(), desc: desc.trim() });
+                        const titleEl = card.querySelector('h1, h2, h3, h4, h5, strong, b');
+                        const descEl = card.querySelector('p, span');
+                        
+                        results.push({ 
+                            url: link.href, 
+                            name: titleEl ? titleEl.innerText.trim() : "Unknown Skill", 
+                            desc: descEl ? descEl.innerText.trim() : "" 
+                        });
                     }
                 });
                 return results;
             }""")
 
-            # 2. Add to our persistent dictionary (GitHub URL is the unique ID)
+            # Add to our master list (prevents duplicates via URL key)
             for item in current_view_items:
                 if item['url'] not in all_skills_dict and len(item['name']) > 2:
                     all_skills_dict[item['url']] = {
-                        "name": item['name'],
-                        "desc": item['desc'],
+                        "name": item['name'].split('\n')[0], # Take first line of name
+                        "desc": item['desc'][:200], # Cap description length
                         "url": item['url'],
                         "stars": 0
                     }
 
-            # 3. Small scroll to trigger the next 'batch' of the virtual list
-            page.mouse.wheel(0, 400) 
-            page.wait_for_timeout(800) # Quick pause for data fetch
+            # Small scroll to trigger the 'windowing' update
+            page.mouse.wheel(0, 500) 
+            page.wait_for_timeout(1000)
             
-            if i % 10 == 0:
-                print(f"Progress: Captured {len(all_skills_dict)} total skills so far...")
+            if i % 5 == 0:
+                print(f"Round {i}: Found {len(all_skills_dict)} total unique skills...")
 
         final_list = list(all_skills_dict.values())
         
@@ -65,7 +68,7 @@ def scrape_moltbot_skills():
         with open('skills.json', 'w', encoding='utf-8') as f:
             json.dump(output_data, f, ensure_ascii=False, indent=2)
             
-        print(f"FINISHED! Saved {len(final_list)} unique skills to skills.json.")
+        print(f"SUCCESS! Harvested {len(final_list)} unique skills.")
         browser.close()
 
 if __name__ == "__main__":
