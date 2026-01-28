@@ -1,9 +1,9 @@
 {
-  "last_updated": "2026-01-28 16:42:00 UTC",
+  "last_updated": "2026-01-28 16:55:31 UTC",
   "skills": [
     {
-      "name": "Unknown",
-      "desc": "",
+      "name": "Skills",
+      "desc": "Browse the skill library.",
       "url": "https://github.com/moltbot/molthub",
       "stars": 0
     }
