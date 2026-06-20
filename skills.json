@@ -1,10 +1,118 @@
 {
-  "last_updated": "2026-06-19 19:43:43 UTC",
+  "last_updated": "2026-06-20 02:53:31 UTC",
   "skills": [
     {
       "name": "Unknown Skill",
       "desc": "",
       "url": "https://github.com/openclaw/clawhub",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/agent-skills",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/discrawl",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/gitcrawl",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/slacrawl",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/notcrawl",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/telecrawl",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/graincrawl",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/crawlkit",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/crawlbar",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/acpx",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/mcporter",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/Tachikoma",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/clawpatch",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/clawbench",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/Peekaboo",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/cookbook",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/plugin-inspector",
+      "stars": 0
+    },
+    {
+      "name": "Unknown Skill",
+      "desc": "Lobster\nCrabbox\nClickClack\nCrabfleet\nOctopool\nClawSweeper\nagent-skills\ndiscrawl\ngitcrawl\nslacrawl\nnotcrawl\ntelecrawl\ngraincrawl\ncrawlkit\ncrawlbar\nacpx\nmcporter\nTachikoma\nclawpatch\nclawbench\nPeekaboo\nc",
+      "url": "https://github.com/openclaw/crabpot",
       "stars": 0
     }
   ]
